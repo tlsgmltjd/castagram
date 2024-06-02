@@ -52,9 +52,9 @@ public class CatController {
         return ResponseEntity.ok().build();
     }
 
-    @GetMapping("/feed")
-    public ResponseEntity<List<FeedDto>> feed(@RequestBody FeedReqDto dto) {
-        User user = userRepository.findById(dto.getUserId())
+    @GetMapping("/feed/{userId}")
+    public ResponseEntity<List<FeedDto>> feed(@PathVariable Long userId) {
+        User user = userRepository.findById(userId)
                 .orElseThrow(RuntimeException::new);
 
         return ResponseEntity.ok(
