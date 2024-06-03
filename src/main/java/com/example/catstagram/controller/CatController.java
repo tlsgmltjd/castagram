@@ -1,8 +1,6 @@
 package com.example.catstagram.controller;
 
-import com.example.catstagram.controller.dto.CatDto;
-import com.example.catstagram.controller.dto.CatResDto;
-import com.example.catstagram.controller.dto.LikeReqDto;
+import com.example.catstagram.controller.dto.*;
 import com.example.catstagram.domain.Cat;
 import com.example.catstagram.domain.Likes;
 import com.example.catstagram.domain.User;
@@ -15,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -50,6 +50,17 @@ public class CatController {
                 .user(user).build());
 
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/feed")
+    public ResponseEntity<List<FeedDto>> feed(@RequestBody FeedReqDto dto) {
+        User user = userRepository.findById(dto.getUserId())
+                .orElseThrow(RuntimeException::new);
+
+        return ResponseEntity.ok(
+                user.getLikes().stream()
+                        .map(like -> new FeedDto(like.getCat().getId(), like.getCat().getCatId())).toList()
+        );
     }
 
 }
