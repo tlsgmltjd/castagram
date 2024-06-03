@@ -1,5 +1,6 @@
 package com.example.catstagram.controller;
 
+import com.example.catstagram.controller.dto.LoginResDto;
 import com.example.catstagram.controller.dto.SignupDto;
 import com.example.catstagram.domain.User;
 import com.example.catstagram.repository.UserRepository;
@@ -31,5 +32,16 @@ public class AuthController {
 
         userRepository.save(user);
         return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/login")
+    public ResponseEntity<LoginResDto> login(@RequestBody SignupDto dto) {
+        User user = userRepository.findByName(dto.getName())
+                .orElseThrow(() -> new RuntimeException("not found user"));
+
+        if (user.getPassword() != dto.getPassword())
+            throw new RuntimeException("not matched password");
+
+        return ResponseEntity.ok(new LoginResDto(user.getId()));
     }
 }
