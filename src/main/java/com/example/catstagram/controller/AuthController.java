@@ -28,8 +28,7 @@ public class AuthController {
 
         User user = User.builder()
                 .name(dto.getName())
-                .password(dto.getPassword())
-                .likes(Arrays.asList()).build();
+                .password(dto.getPassword()).build();
 
         userRepository.save(user);
         return ResponseEntity.ok().build();
