@@ -6,6 +6,7 @@ import com.example.catstagram.domain.User;
 import com.example.catstagram.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -21,6 +22,7 @@ public class AuthController {
     private final UserRepository userRepository;
 
     @PostMapping("/signup")
+    @Transactional
     public ResponseEntity<Void> signup(@RequestBody SignupDto dto) {
 
         if (userRepository.existsByName(dto.getName()))
@@ -36,6 +38,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
+    @Transactional
     public ResponseEntity<LoginResDto> login(@RequestBody SignupDto dto) {
         User user = userRepository.findByName(dto.getName())
                 .orElseThrow(() -> new RuntimeException("not found user"));
