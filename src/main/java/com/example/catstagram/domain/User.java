@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
@@ -30,4 +31,8 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Likes> likes;
+
+    public boolean validatePassword(String password) {
+        return Objects.equals(this.password, password);
+    }
 }

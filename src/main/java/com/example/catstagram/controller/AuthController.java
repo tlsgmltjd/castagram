@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,7 +40,7 @@ public class AuthController {
         User user = userRepository.findByName(dto.getName())
                 .orElseThrow(() -> new RuntimeException("not found user"));
 
-        if (user.getPassword() != dto.getPassword())
+        if (!user.validatePassword(dto.getPassword()))
             throw new RuntimeException("not matched password");
 
         return ResponseEntity.ok(new LoginResDto(user.getId()));
