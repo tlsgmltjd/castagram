@@ -29,8 +29,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-//    @OneToMany(mappedBy = "user")
-//    private List<Likes> likes;
+    @OneToMany(mappedBy = "user")
+    private List<Likes> likes;
 
     public boolean validatePassword(String password) {
         return Objects.equals(this.password, password);

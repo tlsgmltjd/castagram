@@ -23,8 +23,6 @@ public class Cat {
     @Column(unique = true, nullable = false)
     private String catId;
 
-//    @OneToMany(mappedBy = "cat")
-//    private List<Likes> likes;
-
-    private Integer likeCount;
+    @OneToMany(mappedBy = "cat")
+    private List<Likes> likes;
 }
