@@ -12,14 +12,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 @Getter
+@IdClass(LikesId.class)
 public class Likes {
     @Id
     @ManyToOne
-    @JoinColumn(name = "user_id")
     private User user;
 
     @Id
     @ManyToOne
-    @JoinColumn(name = "cat_id")
     private Cat cat;
 }

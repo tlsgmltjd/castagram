@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -28,5 +29,5 @@ public class User {
     private String password;
 
     @OneToMany(mappedBy = "user")
-    private Set<Likes> likes;
+    private List<Likes> likes;
 }

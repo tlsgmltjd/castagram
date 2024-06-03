@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -23,5 +24,5 @@ public class Cat {
     private String catId;
 
     @OneToMany(mappedBy = "cat")
-    private Set<Likes> likes;
+    private List<Likes> likes;
 }
